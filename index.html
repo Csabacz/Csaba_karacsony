@@ -223,21 +223,26 @@ document.addEventListener("DOMContentLoaded", () => {
       }
   }
 
-  if (window.innerWidth < 768) {
-    // 1. Megkeressük a csúszkát és lekapjuk az értékét nullára
-    const slider = document.getElementById("snow-slider");
-    if (slider) {
-        slider.value = 0;
-        // Ha a kódodban van egy változó, ami a hópelyhek aktuális számát követi (pl. maxSnow), 
-        // azt is érdemes itt nullára állítani, pl: maxSnow = 0;
-    }
+  // Megnézzük, hogy mobil/tablet eszközről van-e szó (érintőképernyő vagy mobil böngésző)
+  const isMobileOrTablet = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-    // 2. Megkeressük a teljes div panelt és teljesen elrejtjük
-    const panel = document.getElementById("panel4");
-    if (panel) {
-        panel.style.display = "none";
-    }
+  if (isMobileOrTablet) {
+      // 1. A csúszka értékét nullára állítjuk
+      const slider = document.getElementById("snow-slider");
+      if (slider) {
+          slider.value = 0;
+      }
+
+      // 2. A teljes panelt elrejtjük
+      const panel = document.getElementById("panel4");
+      if (panel) {
+          panel.style.display = "none";
+      }
+      
+      // Ha a kódodban van egy globális változó, ami a hópelyhek számát tárolja (pl. maxSnowflakes),
+      // azt is állítsd itt 0-ra, hogy biztosan ne induljon el a ciklus!
   }
+
   // Kezdeti hópelyhek száma
   createSnow(slider.value);
 
