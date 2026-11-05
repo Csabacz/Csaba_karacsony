@@ -211,7 +211,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //Véletlenszerű értékek beállítása
     flake.style.left = `${Math.random() * 100}vw`;                  // Hol kezdjen el esni (0-100% szélesség)
-    flake.style.fontSize = `${Math.random() * 3.5 + 0.5}rem`;       // Méret (0.5 és 2rem között)
+    
+    if (window.innerWidth > 768) {
+        flake.style.fontSize = `${Math.random() * 3.5 + 0.5}rem`;       // Méret (0.5 és 2rem között)
+    } else {
+        flake.style.fontSize = `0.2rem`;       // Méret (0.5 és 2rem között)
+    }
     flake.style.animationDuration = `${Math.random() * 5 + 5}s`;    // Hullási sebesség (5 és 10 másodperc között)
     flake.style.animationDelay = `${Math.random() * 5}s`;           // Késleltetés, hogy ne egyszerre induljanak
     flake.style.opacity = Math.random();                            // Áttetszőség a mélységérzetért
