@@ -207,35 +207,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const flake = document.createElement("div");
       flake.className = "snowflake";
-      // flake.textContent = "✳";
+      flake.textContent = "✳";
 
-      if (window.innerWidth > 768) {
-        flake.textContent = "✳";
-      } else {
-        flake.textContent = "•"; // A "." helyett javaslom ezt a nagyobb pöttyöt ("•"), mert a sima pont alig látszódna
-        flake.style.color = "#0084FF"; // Itt kényszerítjük rá a fehér színt telefonon
-        flake.style.fontSize = "60px"; // Opcionális: telefonon picit megnövelheted, hogy szép nagy pehely legyen
+      //Véletlenszerű értékek beállítása
+      flake.style.left = `${Math.random() * 100}vw`;                  // Hol kezdjen el esni (0-100% szélesség)
+      flake.style.fontSize = `${Math.random() * 3.5 + 0.5}rem`;       // Méret (0.5 és 2rem között)
+      flake.style.animationDuration = `${Math.random() * 5 + 5}s`;    // Hullási sebesség (5 és 10 másodperc között)
+      flake.style.animationDelay = `${Math.random() * 5}s`;           // Késleltetés, hogy ne egyszerre induljanak
+      flake.style.opacity = Math.random();                            // Áttetszőség a mélységérzetért
+      flake.style.fontWeight = "100";
+
+        document.body.appendChild(flake);
+
+        flakes.push(flake);
       }
-
-    //Véletlenszerű értékek beállítása
-    flake.style.left = `${Math.random() * 100}vw`;                  // Hol kezdjen el esni (0-100% szélesség)
-    
-    if (window.innerWidth > 768) {
-        flake.style.fontSize = `${Math.random() * 3.5 + 0.5}rem`;       // Méret (0.5 és 2rem között)
-    } else {
-        flake.style.fontSize = `0.2rem`;       // Méret (0.5 és 2rem között)
-    }
-    flake.style.animationDuration = `${Math.random() * 5 + 5}s`;    // Hullási sebesség (5 és 10 másodperc között)
-    flake.style.animationDelay = `${Math.random() * 5}s`;           // Késleltetés, hogy ne egyszerre induljanak
-    flake.style.opacity = Math.random();                            // Áttetszőség a mélységérzetért
-    flake.style.fontWeight = "100";
-
-      document.body.appendChild(flake);
-
-      flakes.push(flake);
-    }
   }
 
+  if (window.innerWidth < 768) {
+    // 1. Megkeressük a csúszkát és lekapjuk az értékét nullára
+    const slider = document.getElementById("snow-slider");
+    if (slider) {
+        slider.value = 0;
+        // Ha a kódodban van egy változó, ami a hópelyhek aktuális számát követi (pl. maxSnow), 
+        // azt is érdemes itt nullára állítani, pl: maxSnow = 0;
+    }
+
+    // 2. Megkeressük a teljes div panelt és teljesen elrejtjük
+    const panel = document.getElementById("panel4");
+    if (panel) {
+        panel.style.display = "none";
+    }
+  }
   // Kezdeti hópelyhek száma
   createSnow(slider.value);
 
