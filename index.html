@@ -207,7 +207,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const flake = document.createElement("div");
       flake.className = "snowflake";
-      flake.textContent = "✳";
+      // flake.textContent = "✳";
+
+      if (window.innerWidth > 768) {
+        flake.textContent = "✳";
+      } else {
+        flake.textContent = "❄\uFE0E"; /* A \uFE0E kód rákényszeríti az iPhone-t, hogy sima szövegként (és a CSS-ben megadott fehér színnel) jelenítse meg az emojit, ne színes képként! */
+      }
 
     //Véletlenszerű értékek beállítása
     flake.style.left = `${Math.random() * 100}vw`;                  // Hol kezdjen el esni (0-100% szélesség)
