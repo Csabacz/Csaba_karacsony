@@ -247,7 +247,8 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
       // Véletlenszerű hópehelyméret
-      const meret = Math.random() * 3.5 + 0.5;
+      const meret = (Math.random() * 3.5 + 0.5) * meretarany;
+      
       flake.style.width = `${meret}rem`;
       flake.style.height = `${meret}rem`;
 
