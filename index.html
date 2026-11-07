@@ -21,7 +21,9 @@
     .snowflake {
       color: #0084FF;
       /* color: #7da9e4; */
-      position: fixed;
+      position: absolute;
+      width: 22px;
+      height: 22px;
       top: -15vh; /* A képernyő felett kezdődik */
       z-index: 9999;
       pointer-events: none; /* Át lehet kattintani a hópelyheken, nem zavarja a weboldalt */
@@ -30,6 +32,12 @@
       /* Csak magát a mozgást definiáljuk itt */
       animation: fall linear infinite;
     }
+
+    .snowflake svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
 
     @keyframes fall {
       0% {
@@ -205,13 +213,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     for (let i = 0; i < count; i++) {
 
+      // const flake = document.createElement("div");
+      // flake.className = "snowflake";
+      // flake.textContent = "✳";
+
       const flake = document.createElement("div");
       flake.className = "snowflake";
-      flake.textContent = "✳";
+
+      flake.innerHTML = `
+      <svg viewBox="0 0 100 100" width="100%" height="100%">
+        <g stroke="currentColor" stroke-width="4"
+          stroke-linecap="round" fill="none">
+          <path d="
+            M50 10 V90
+            M15.4 30 L84.6 70
+            M15.4 70 L84.6 30
+          "/>
+        </g>
+      </svg>
+      `;
 
       //Véletlenszerű értékek beállítása
       flake.style.left = `${Math.random() * 100}vw`;                  // Hol kezdjen el esni (0-100% szélesség)
-      flake.style.fontSize = `${Math.random() * 3.5 + 0.5}rem`;       // Méret (0.5 és 2rem között)
+      //flake.style.fontSize = `${Math.random() * 3.5 + 0.5}rem`;       // Méret (0.5 és 2rem között)
+
+      const meret = Math.random() * 3.5 + 0.5;
+      flake.style.width = `${meret}rem`;
+      flake.style.height = `${meret}rem`;
+
       flake.style.animationDuration = `${Math.random() * 5 + 5}s`;    // Hullási sebesség (5 és 10 másodperc között)
       flake.style.animationDelay = `${Math.random() * 5}s`;           // Késleltetés, hogy ne egyszerre induljanak
       flake.style.opacity = Math.random();                            // Áttetszőség a mélységérzetért
@@ -224,24 +253,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Megnézzük, hogy mobil/tablet eszközről van-e szó (érintőképernyő vagy mobil böngésző)
-  const isMobileOrTablet = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  // const isMobileOrTablet = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-  if (isMobileOrTablet) {
-      // 1. A csúszka értékét nullára állítjuk
-      const slider = document.getElementById("snow-slider");
-      if (slider) {
-          slider.value = 0;
-      }
+  // if (isMobileOrTablet) {
+  //     // 1. A csúszka értékét nullára állítjuk
+  //     const slider = document.getElementById("snow-slider");
+  //     if (slider) {
+  //         slider.value = 0;
+  //     }
 
-      // 2. A teljes panelt elrejtjük
-      const panel = document.getElementById("panel4");
-      if (panel) {
-          panel.style.display = "none";
-      }
+  //     // 2. A teljes panelt elrejtjük
+  //     const panel = document.getElementById("panel4");
+  //     if (panel) {
+  //         panel.style.display = "none";
+  //     }
       
-      // Ha a kódodban van egy globális változó, ami a hópelyhek számát tárolja (pl. maxSnowflakes),
-      // azt is állítsd itt 0-ra, hogy biztosan ne induljon el a ciklus!
-  }
+  //     // Ha a kódodban van egy globális változó, ami a hópelyhek számát tárolja (pl. maxSnowflakes),
+  //     // azt is állítsd itt 0-ra, hogy biztosan ne induljon el a ciklus!
+  // }
 
   // Kezdeti hópelyhek száma
   createSnow(slider.value);
