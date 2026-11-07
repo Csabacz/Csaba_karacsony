@@ -237,6 +237,16 @@ document.addEventListener("DOMContentLoaded", () => {
       flake.style.left = `${Math.random() * 100}vw`;                  // Hol kezdjen el esni (0-100% szélesség)
       //flake.style.fontSize = `${Math.random() * 3.5 + 0.5}rem`;       // Méret (0.5 és 2rem között)
 
+      // Képernyőméretarány a 1920×1080-as monitorhoz képest
+      const meretarany = Math.max(
+          0.55,
+          Math.min(
+              window.innerWidth / 1920,
+              window.innerHeight / 1080
+          )
+      );
+
+      // Véletlenszerű hópehelyméret
       const meret = Math.random() * 3.5 + 0.5;
       flake.style.width = `${meret}rem`;
       flake.style.height = `${meret}rem`;
