@@ -1147,36 +1147,55 @@ ctx.fillText("Boldog Karácsonyt!", 3, 230);
 
 var myVar = setInterval(szamlalas, 1000);
 
-
 var nap;
-var nap_maradek;
 var ora;
-var ora_maradek;
 var perc;
-var perc_maradek;
+var maperc;
 
-function szamlalas ()  
-    { 
-        most = new Date();
-        var x = most.getTime() / 1000;
-        karacsony_time = new Date(most.getFullYear(),11,24,18,0,0);
-        var y = karacsony_time.getTime() / 1000;
-        var mapercek = Math.floor(y - x);
+function szamlalas()
+{
+    var most = new Date();
 
+    var karacsony_time = new Date(most.getFullYear(), 11, 24, 18, 0, 0);
+    var karacsony_vege = new Date(most.getFullYear(), 11, 27, 0, 0, 0);
 
-        nap = parseInt(mapercek / (24 * 60 * 60));
-        mapercek = mapercek - (nap * (24 * 60 * 60));
-        ora = parseInt(mapercek / (60 * 60));
-        mapercek = mapercek - (ora * (60 * 60));
-        perc = parseInt(mapercek / 60);
-        mapercek = mapercek - (perc * 60);
-        maperc = parseInt(mapercek);
+    // Karácsonyi időszak
+    if (most >= karacsony_time && most < karacsony_vege) {
 
+        document.getElementById("panel1").innerHTML =
+            "<strong><center><span style='font-size: 24pt'>KARÁCSONY VAN!</span></center></strong>";
 
+        return;
+    }
 
-        document.getElementById("panel1").innerHTML="<strong><center>Karácsonyig vissza van: <span style='font-size: 20pt'>" + ((nap < 10) ? "0" : "") + nap + "</span> nap, <span style='font-size: 20pt'>" + ((ora < 10) ? "0" : "") + ora + "</span> óra, <span style='font-size: 20pt'>" + ((perc < 10) ? "0" : "") + perc + "</span> perc, <span style='font-size: 20pt'>" + ((maperc < 10) ? "0" : "") + maperc + "</span> másodperc</center></strong>";
+    // Ha az idei karácsony már elmúlt, a következő évre váltunk
+    if (most >= karacsony_vege) {
+        karacsony_time = new Date(most.getFullYear() + 1, 11, 24, 18, 0, 0);
+    }
 
-   }
+    var x = most.getTime() / 1000;
+    var y = karacsony_time.getTime() / 1000;
+
+    var mapercek = Math.floor(y - x);
+
+    nap = parseInt(mapercek / (24 * 60 * 60));
+    mapercek = mapercek - (nap * (24 * 60 * 60));
+
+    ora = parseInt(mapercek / (60 * 60));
+    mapercek = mapercek - (ora * (60 * 60));
+
+    perc = parseInt(mapercek / 60);
+    mapercek = mapercek - (perc * 60);
+
+    maperc = parseInt(mapercek);
+
+    document.getElementById("panel1").innerHTML =
+        "<strong><center>Karácsonyig vissza van: " +
+        "<span style='font-size: 20pt'>" + ((nap < 10) ? "0" : "") + nap + "</span> nap, " +
+        "<span style='font-size: 20pt'>" + ((ora < 10) ? "0" : "") + ora + "</span> óra, " +
+        "<span style='font-size: 20pt'>" + ((perc < 10) ? "0" : "") + perc + "</span> perc, " +
+        "<span style='font-size: 20pt'>" + ((maperc < 10) ? "0" : "") + maperc + "</span> másodperc</center></strong>";
+}
 
 }
 
